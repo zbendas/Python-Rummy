@@ -3,7 +3,6 @@
 from rummy.player.player import Player
 from rummy.player.hand import Hand
 from rummy.deck.card import Card
-from rummy.game.round import Round
 from rummy.game.melds import Melds
 
 
@@ -64,3 +63,14 @@ class TestPlayer:
     def test_display_round_score(self):
         player = DummyPlayer(1)
         assert player.display_round_score() == player.hand.score
+
+    def test_has_someone_knocked(self, mocker):
+        mocker.patch('builtins.print')
+        player = DummyPlayer(1)
+        player.round = mocker.MagicMock()
+        player.round.knocked = False
+        player.has_someone_knocked()
+        assert print.call_count == 0
+        player.round.knocked = True
+        player.has_someone_knocked()
+        assert print.call_count == 1

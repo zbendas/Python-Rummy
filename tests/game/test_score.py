@@ -53,8 +53,11 @@ class TestScore:
         human2.get_game_score.return_value = 100
         human3.get_game_score.return_value = 50
         human4.get_game_score.return_value = 50
+        score = Score([human1, human2, human3, human4])
         assert score.find_lowest_scores() == [score.players[2], score.players[3]]
-
-    def test_render_this_round_score(self):
-        # Pass this test entirely because this is a rendering method
-        pass
+        human1.get_game_score.return_value = 100
+        human2.get_game_score.return_value = 80
+        human3.get_game_score.return_value = 50
+        human4.get_game_score.return_value = 90
+        score = Score([human1, human2, human3, human4])
+        assert score.find_lowest_scores() == [score.players[2]]
