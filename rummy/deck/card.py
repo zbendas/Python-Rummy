@@ -25,6 +25,8 @@ class Card:
             return self.red_card()
         elif self.suit in (u"♠", u"♣", "C", "S"):
             return self.black_card()
+        else:
+            raise ValueError("Invalid card suit supplied.")
 
     def red_card(self):
         if UNICODE_SUPPORT:

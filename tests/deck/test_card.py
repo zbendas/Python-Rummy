@@ -1,5 +1,7 @@
 # coding=utf-8
 
+from pytest import raises
+
 from rummy.deck.card import Card
 
 
@@ -23,8 +25,11 @@ class TestCard:
     def test_get_card_colour(self):
         card1 = Card("A", "H")
         card2 = Card("3", "S")
+        card3 = Card("3", "M")
         assert 'A\x1b[0;31m♥\x1b[0m' == card1.get_card_colour()
         assert '3♠' == card2.get_card_colour()
+        with raises(ValueError, message="Expecting ValueError passed on card3.suit"):
+            card3.get_card_colour()
 
     def test_value_ace(self):
         card = Card("A", "♥")

@@ -1,5 +1,7 @@
 # coding=utf-8
 
+from pytest import raises
+
 from rummy.game.setup_players import SetupPlayers
 
 
@@ -30,6 +32,8 @@ class TestSetupPlayers:
         setup.setup_ai(1)
         assert SetupPlayers.choose_number_of_ai_opponents.call_count == 2
         assert setup.number_of_opponents == 1
+        with raises(ValueError, message="Expecting ValueError due to number_of_players"):
+            setup.setup_ai(2)
 
     def test_choose_number_of_ai_opponents(self, mocker):
         mocker.patch.object(SetupPlayers, 'choose_players')
@@ -51,7 +55,3 @@ class TestSetupPlayers:
         setup.number_of_players = 2
         setup.number_of_opponents = 2
         assert len(setup.create_players()) == 4
-
-    def test_valid_number_check(self):
-        # This method will be moved to a new class, so I'm avoiding testing it here.
-        pass

@@ -28,6 +28,8 @@ class SetupPlayers:
             self.choose_number_of_ai_opponents(4)
         elif number_of_players == 1:
             self.choose_number_of_ai_opponents(3)
+        else:
+            raise ValueError("Invalid number of players supplied to setup AI opponents.")
 
     def choose_number_of_ai_opponents(self, max_opponents):
         number_of_opponents = -1
